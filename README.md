@@ -122,6 +122,13 @@ venv\\Scripts\\activate
 pip install -r requirements.txt
 ```
 
+or 
+
+```bash
+pip install -r requirements-lock.txt
+```
+for exact versions used when I initially ran the experiments
+
 ---
 
 # Dataset Setup
