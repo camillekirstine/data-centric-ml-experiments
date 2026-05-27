@@ -162,6 +162,23 @@ This will:
 
 ---
 
+# Processed Data
+
+The `processed/` directory stores transformed datasets generated through the preprocessing pipeline.
+
+Examples include:
+- cleaned datasets,
+- engineered datasets,
+- encoded feature representations.
+
+Processed datasets can be regenerated using:
+
+```bash
+python -m src.data.export_processed_data
+```
+
+---
+
 # Notebooks
 
 | Notebook | Description |

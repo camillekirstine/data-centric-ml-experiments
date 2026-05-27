@@ -82,29 +82,39 @@ def create_cleaned_preprocessor(
 
 def create_engineered_preprocessor(
     numeric_cols,
-    categorical_cols
+    categorical_cols,
+    k=20
 ):
-    
+
     numeric_pipeline = Pipeline([
         ("imputer", SimpleImputer(strategy="median")),
         ("scaler", StandardScaler())
     ])
-    
+
     categorical_pipeline = Pipeline([
         ("imputer", SimpleImputer(strategy="most_frequent")),
-        
+
         ("encoder", OneHotEncoder(
             handle_unknown="ignore",
             sparse_output=False
         ))
     ])
-    
+
     preprocessor = ColumnTransformer([
         ("num", numeric_pipeline, numeric_cols),
         ("cat", categorical_pipeline, categorical_cols)
     ])
-    
-    return preprocessor
+
+    engineered_pipeline = Pipeline([
+        ("preprocessing", preprocessor),
+
+        ("feature_selection", SelectKBest(
+            score_func=mutual_info_classif,
+            k=k
+        ))
+    ])
+
+    return engineered_pipeline
 
 
 def create_feature_selector(k=20):
